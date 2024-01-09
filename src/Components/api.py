@@ -3,7 +3,7 @@ import requests
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
+CORS(app)
 
 @app.route('/api/data', methods=['GET'])
 def get_match():
@@ -12,11 +12,11 @@ def get_match():
     if not uri:
         return jsonify({'error': 'Missing URI parameter'}), 400
 
-    headers = {'X-Auth-Token': 'fd490b04139846d595bd99f2de5753af', 'Accept-Encoding': ''}
+    headers = {'X-Auth-Token': 'fd490b04139846d595bd99f2de5753af', 'Accept-Encoding': '', 'X-Unfold-Goals': 'true'}
 
     try:
         response = requests.get(uri, headers=headers)
-        response.raise_for_status()  # Raise an HTTPError for bad responses (e.g., 4xx, 5xx)
+        response.raise_for_status()
 
         upcoming_matches = response.json()
         return jsonify(upcoming_matches)
