@@ -24,7 +24,7 @@ const Container = () => {
         {/*Choose title based on page */}
         <button type="button" onClick={handleClick}>
           {" "}
-          {login ? "Login" : "Signup"}
+          {login ? "Signup" : "Login"}
         </button>
       </div>
       <Signup />

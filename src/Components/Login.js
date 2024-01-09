@@ -13,6 +13,12 @@ const Login = () => {
     e.preventDefault();
   }
 
+  function login() {
+    logInWithEmailAndPassword(email, password);
+    setEmail("");
+    setPassword("");
+  }
+
   useEffect(() => {
     if (loading) {
       return;
@@ -44,7 +50,7 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button type="submit" onClick={() => logInWithEmailAndPassword(email, password)}>Login</button>
+          <button type="submit" onClick={() => login()}>Login</button>
           <button className="login__btn login__google" onClick={signInWithGoogle}>Login with Google</button>
           {error && <p className="error">{error}</p>}
         </form>

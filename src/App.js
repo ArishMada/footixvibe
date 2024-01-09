@@ -9,7 +9,6 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/footixVibe/login" element={<LoginPage />} />
-        <Route path ="/footixVibe/signup" element={<Signup/>} />
       </Routes>
     </div>
   );

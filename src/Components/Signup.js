@@ -11,7 +11,15 @@ const Signup = () => {
   const [user, loading, error] = useAuthState(auth);
 
   const register = () => {
-    if (password === cpassword) registerWithEmailAndPassword(email, password);
+    if (password === cpassword) {
+      registerWithEmailAndPassword(email, password)
+      setEmail("");
+      setPassword("");
+      setCpassword("");
+    } else {
+      alert("Password and Confirm Password doesn't match");
+    };
+
   };
 
   const handleSignup = async (e) => {
