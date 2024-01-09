@@ -18,7 +18,7 @@ const Signup = () => {
       setEmail("");
       setPassword("");
       setCpassword("");
-      navigate("/footixVibe/standings", { replace: true });
+      navigate("/footixVibe/fixtures", { replace: true });
 
     } else {
       alert("Password and Confirm Password doesn't match");
