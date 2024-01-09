@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import LandingPage from './Components/LPcomponents/LandingPage';
 import LoginPage from './Components/LoginPage';
 import Standings from './Components/Standings';
-
+import Fixtures from './Components/Fixtures';
 function App() {
   return (
     <div className="App">
