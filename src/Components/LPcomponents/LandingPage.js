@@ -141,7 +141,7 @@ const LandingPage = () => {
               Want to follow the scores and news of your favourite football
               teams?
             </p>
-            <Link to="/collabify/login">
+            <Link to="/footixVibe/login">
               <button className="secondary-button">
                 Join us now <FiArrowRight />
               </button>

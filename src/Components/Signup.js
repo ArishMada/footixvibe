@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useNavigate } from "react-router-dom";
 import { FaDoorClosed } from "react-icons/fa";
 import "./Signup.css";
 import { auth, registerWithEmailAndPassword, signInWithGoogle } from "./firebase";
@@ -9,6 +10,7 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [cpassword, setCpassword] = useState("");
   const [user, loading, error] = useAuthState(auth);
+  const navigate = useNavigate();
 
   const register = () => {
     if (password === cpassword) {
@@ -16,6 +18,8 @@ const Signup = () => {
       setEmail("");
       setPassword("");
       setCpassword("");
+      navigate("/footixVibe/standings", { replace: true });
+
     } else {
       alert("Password and Confirm Password doesn't match");
     };

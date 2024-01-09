@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import { FaDoorOpen } from "react-icons/fa";
 import "./Login.css";
 import { auth, signInWithGoogle, logInWithEmailAndPassword } from './firebase';
@@ -8,6 +9,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, loading, error] = useAuthState(auth);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,12 +22,14 @@ const Login = () => {
   }
 
   useEffect(() => {
+    console.log(user);
     if (loading) {
       return;
     }
 
     if (user) {
       console.log(user.displayName);
+      navigate("/footixVibe/standings", { replace: true });
     }
     if (error) alert(error);
   }, [error, loading, user]);
