@@ -1,0 +1,55 @@
+.container {
+    display: grid;
+    grid-template-columns: 65% 35% 0%;
+    align-items: center;
+    width: 70%;
+    height: 31.25rem;
+    background-color: #fe9e0d;
+    padding: 0px;
+    margin: 100px auto;
+    border: 1px solid #000;
+    overflow: hidden;
+    transition: 0.3s linear;
+}
+
+.container.active {
+    grid-template-columns: 0% 35% 65%;
+    transition: 0.3s linear;
+}
+
+.container .side-div {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("./bg.jpg");
+    background-size: cover;
+    background-position: center;
+    justify-content: center;
+    transition: 1s;
+}
+
+.container.active .side-div {
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("./bg1.jpg");
+    background-size: cover;
+    background-position: center;
+    transition: 1s;
+}
+
+.container .side-div button {
+    padding: 10px;
+    background: linear-gradient(60deg, rgba(255, 123, 0, 0.5), #0621e0);
+    color: rgb(255, 255, 255);
+    border: 1px solid black;
+    cursor: pointer;
+    font-size: 1.4rem;
+    font-weight: bold;
+    transition: 0.3s linear;
+}
+
+.container .side-div button:hover {
+    background: rgba(127, 17, 224, 0.7);
+    border: 2px solid rgb(62, 61, 61);
+    font-size: 1.6rem;
+}

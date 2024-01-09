@@ -1,38 +1,315 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Reem Kufi", sans-serif !important;
+}
+img {
+  max-width: 100%;
+  height: auto;
+}
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
   min-height: 100vh;
+  width: 100%;
+  max-width: 1900px;
+  margin: 0rem auto;
+}
+body {
+  min-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  background-color: #000000;
+}
+
+/*Nav landing page*/
+.home-container nav {
+  width: 100%;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  justify-content: space-between;
+  height: 8vh;
+  background: linear-gradient(to bottom, #DFFF00 0%, #bc7d08 75%);
+  color: #133862;
+}
+
+.nav-logo-container {
+  margin-left: 20px;
+  font-weight: 1000;
+}
+
+.nav-logo-container h1{
+  font-style: italic;
+  font-size: 2rem;
+  font-weight: 1200;
+}
+
+.home-container nav h2{
+  font-style: italic;
+  font-size: 1.5rem;
+  font-weight: 1200;
+}
+
+.navbar-menu-container {
+  display: none;
+}
+
+.navbar-links-container p {
+  display: inline;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 1.23rem 1.23rem;
+}
+
+.navbar-links-container p:hover {
+  background-color: #bc7d08;
+  transition: 500ms;
+  color: #19304a;
+  cursor: pointer;
+}
+
+.primary-button {
+  padding: 0.9rem 1.75rem;
+  background-color: #ffa600;
+  color: #133862;
+  outline: none;
+  border: none;
+  border-radius: 5rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
+  margin-right: 15px;
+}
+
+.primary-button:hover {
+  background-color: rgb(49, 33, 102);
   color: white;
 }
-
-.App-link {
-  color: #61dafb;
+.navbar-menu-container svg {
+  font-size: 1.5rem;
+  cursor: pointer;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.sideMenu svg {
+  color:#ffffff;
+}
+
+.sideMenuItem {
+  color: white;
+  transition: 0.3s;
+}
+
+.sideMenuItem:hover {
+  color:#ffffff;
+  background-color: #0077b6;
+  padding-top: 0.8rem;
+  padding-bottom: 0.8rem;
+}
+
+.home-banner-container {
+  background-color: #212121;
+  position: relative;
+  display: flex;
+  padding: 2rem;
+  margin: 30px;
+}
+
+.home-image-section {
+  max-width: 800px;
+  height: 50px;
+  flex: 1;
+}
+
+.home-text-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.primary-heading {
+  font-size: clamp(1rem, 5vw, 3.5rem);
+  color: #fffcfc;
+  max-width: 37.5rem;
+}
+
+.primary-text {
+  font-size: clamp(1rem, 3vw, 1.5rem);
+  max-width: 90%;
+  color: #cfcdcd;
+  margin: 1.5rem 0rem;
+}
+
+.home-text-section a {
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+}
+
+.secondary-button {
+  padding: 1rem 2.5rem;
+  background-color: #ffa600;
+  outline: none;
+  border: none;
+  border-radius: 5rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  font-weight: 600;
+  color: white;
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.secondary-button svg {
+  margin-left: 0.75rem;
+  font-size: 1.5rem;
+}
+.secondary-button:hover {
+  background-color: #0f16e4;
+}
+
+@media (max-width: 800px) {
+  .home-container nav {
+    width: 100%;
+    margin: 0;
   }
-  to {
-    transform: rotate(360deg);
+
+  .nav-logo-container {
+    max-width: 140px;
   }
+  .navbar-links-container {
+    display: none;
+  }
+  .navbar-menu-container {
+    display: flex;
+  }
+  .home-bannerImage-container {
+    max-width: 450px;
+  }
+  .home-banner-container,
+  .about-section-container, .productivity-section-container {
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/*About section*/
+.about-section-container {
+  margin-top: 6rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.about-section-image-container {
+  flex: 0.9;
+  margin-top: 2rem;
+  margin-left: 3rem;
+}
+
+.about-section-image-container img {
+  padding: 1rem;
+  background-color: #0c0f10;
+  height: 28rem;  
+}
+
+.about-section-text-container {
+  flex: 1;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  margin-left: 6rem;
+}
+
+.primary-subheading {
+  font-weight: 700;
+  color: #fe9e0d;
+  font-size: 1.25rem;
+  border-bottom: 1px solid #fe9e0d;
+}
+
+.primary-heading {
+  font-size: clamp(2rem, 5vw, 4rem);
+  color: #fffcfc;
+  font-style: italic;
+  max-width: 50rem;
+  margin-top: 1rem;
+}
+
+/*footer section*/
+.footer-wrapper {
+  display: flex;
+  margin-top: 5rem;
+  background: linear-gradient(to bottom, #bc7d08 0%, #a5bd07 75%);
+  padding: 3rem 2rem;
+}
+.footer-logo-container {
+  max-width: 110px;
+  font-style: italic;
+  color: #133862;
+}
+.footer-icons {
+  margin-top: 2.5rem;
+}
+.footer-icons svg {
+  font-size: 1.5rem;
+  margin-right: 1.25rem;
+  color: #ffffff;
+}
+.footer-section-two {
+  display: flex;
+  justify-content: flex-end;
+}
+.footer-section-columns {
+  display: flex;
+  flex-direction: column;
+  min-width: 190px;
+  padding-left: 15rem;
+}
+.footer-section-columns span {
+  margin: 0.5rem 0rem;
+  font-weight: 600;
+  color: #ffffff;
+  cursor: pointer;
+}
+.footer-section-columns span.footer-title{
+  margin: 0.5rem 0rem;
+  cursor: default;
+  text-decoration: underline;
+  color: #133862;
+}
+
+/*back to the top button*/
+.back-to-top-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  cursor: pointer;
+  display: none;
+}
+
+.back-to-top-button.visible {
+  display: block;
+}
+
+.back-to-top-button:focus {
+  outline: none;
+}
+
+.back-to-top-button:hover {
+  background-color: #555;
 }

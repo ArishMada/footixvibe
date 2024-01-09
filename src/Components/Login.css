@@ -1,0 +1,82 @@
+.login {
+    height: 31.25rem;
+    width: 100%;
+    overflow: hidden;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.login .icon {
+    font-size: 50px;
+    border: 1px solid white;
+    background-color: rgb(135, 100, 238);
+    cursor: pointer;
+    border-radius: 50%;
+    padding: 5px 10px;
+}
+
+.login h1 {
+    font-size: 3.0rem;
+    margin-bottom: 20px;
+    color: #000;
+    font-weight: bold;
+    padding: 15px 0;
+    font-family: "Copperplate";
+}
+
+.login form {
+    width:60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+/*inputs that are not submit type*/
+.login form input:not([type="submit"]) {
+    width: 100%;
+    padding: 10px;
+    background-color: #bbbbbb;
+    border: 2px solid black;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    font-size: 0.99rem;
+    color: #090909;
+}
+
+.login form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #452b8b;
+    border: 2px solid black;
+    border-radius: 10px;
+    margin-top: 10px;
+    font-size: 0.99rem;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.login form button:hover {
+    background-color: #2a1a55;
+    cursor: pointer;
+}
+
+.login button.logout {
+    width: 30%;
+    padding: 10px;
+    background-color: #452b8b;
+    border: 2px solid black;
+    border-radius: 10px;
+    margin-top: 10px;
+    font-size: 0.99rem;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.login button.logout:hover {
+    background-color: #2a1a55;
+    cursor: pointer;
+}

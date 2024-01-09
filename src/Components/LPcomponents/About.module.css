@@ -1,0 +1,39 @@
+.about-section-container {
+  margin-top: 15rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.about-section-image-container {
+  flex: 0.9;
+  margin-right: 2rem;
+}
+
+.about-section-image-container {
+  margin-top: 4rem;
+  margin-left: 3rem;
+}
+
+.about-section-text-container {
+  flex: 1;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  margin-left: 8rem;
+}
+
+.primary-subheading {
+  font-weight: 700;
+  color: #fe9e0d;
+  font-size: 1.15rem;
+}
+.about-button-container {
+  margin-top: 2rem;
+  display: flex;
+}
+
+.about-button-container a {
+  text-decoration: none;
+}
