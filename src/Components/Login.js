@@ -28,6 +28,7 @@ const Login = () => {
     }
 
     if (user) {
+      console.log("has user")
       console.log(user.displayName);
       navigate("/footixVibe/standings", { replace: true });
     }
