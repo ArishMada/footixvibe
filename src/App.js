@@ -10,7 +10,8 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/footixVibe/login" element={<LoginPage />} />
-        <Route path="/footixVibe/standings" element={<Standings />} />
+        <Route path="/footixVibe/fixtures" element={<Fixtures />} />
+        <Route path="/footixVibe/standings" element={<Standings />}/>
       </Routes>
     </div>
   );
