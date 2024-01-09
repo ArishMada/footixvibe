@@ -3,7 +3,7 @@ import axios from "axios";
 import Navbar from "./Navbar";
 import Table from "./Table";
 
-const Standings = () => {
+const Fixtures = () => {
   const [PL, setPL] = useState([]);
 
   const apiUrl = 'http://localhost:5000/api/data';
@@ -54,4 +54,4 @@ const Standings = () => {
   );
 };
 
-export default Standings;
+export default Fixtures;
