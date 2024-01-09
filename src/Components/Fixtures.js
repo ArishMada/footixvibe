@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "./Navbar";
 
-const Standings = () => {
+const Fixtures = () => {
   const [PL, setPL] = useState({});
 
   const apiUrl = 'http://localhost:5000/api/data';
@@ -70,4 +70,4 @@ const Standings = () => {
   );
 };
 
-export default Standings;
+export default Fixtures;
