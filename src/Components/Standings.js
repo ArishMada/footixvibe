@@ -5,19 +5,32 @@ import Navbar from "./Navbar";
 const Standings = () => {
   const [data, setData] = useState(null);
 
+  const apiUrl = 'http://localhost:5000/api/data';
+  const uri = 'https://api.football-data.org/v4/competitions/PL/matches';
+
+  // fetch(`${apiUrl}?uri=${uri}`)
+  //   .then(response => {
+  //     if (!response.ok) {
+  //       throw new Error(`HTTP error! Status: ${response.status}`);
+  //     }
+  //     return response.json();
+  //   })
+  //   .then(data => {
+  //     setData(data);
+  //     console.log(data);
+  //   })
+  //   .catch(error => {
+  //     console.error('Error fetching data:', error.message);
+  //   });
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "https://api.football-data.org/v4/competitions/PD/standings",
-          {
-            headers: {
-              "X-Auth-Token": "fd490b04139846d595bd99f2de5753af", // Replace with your actual token
-            },
-          }
-        );
+        const response = await fetch(`${apiUrl}?uri=${uri}`);
+        const data = await response.json();
 
-        setData(response.data);
+        setData(data);
+        console.log(data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
