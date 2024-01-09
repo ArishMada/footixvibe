@@ -12,9 +12,21 @@ import ListItemText from "@mui/material/ListItemText";
 import HomeIcon from "@mui/icons-material/Home";
 import InfoIcon from "@mui/icons-material/Info";
 import GroupIcon from "@mui/icons-material/Group";
+import { auth, logout } from "./firebase";
+import { useNavigate } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
 
-const Navbar = (handleLogout) => {
+const Navbar = () => {
   const [openMenu, setOpenMenu] = useState(false);
+  const navigate = useNavigate();
+  const [user, loading, error] = useAuthState(auth);
+
+  useEffect(() => {
+    if (loading) return;
+    if (!user) {
+        return navigate("/footixVibe/login");
+    }
+  }, [user, loading]);
 
   const menuOptions = [
     {
@@ -53,7 +65,7 @@ const Navbar = (handleLogout) => {
           <p onClick={() => scrollToSection("About")}>About</p>
           <p onClick={() => scrollToSection("News")}>News</p>
           <Link to="/footixVibe/login">
-            <button className="primary-button" onClick={handleLogout}>Logout</button>
+            <button className="primary-button" onClick={logout}>Logout</button>
           </Link>
         </div>
         <div className="navbar-menu-container">
