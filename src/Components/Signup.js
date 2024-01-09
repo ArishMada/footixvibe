@@ -1,48 +1,26 @@
-import React, {useState} from 'react'
+import React, { useEffect, useState } from 'react';
+import { useAuthState } from "react-firebase-hooks/auth";
 import { FaDoorClosed } from "react-icons/fa";
-import "./Signup.css"
+import "./Signup.css";
+import { auth, registerWithEmailAndPassword, signInWithGoogle } from "./firebase";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   const [cpassword, setCpassword] = useState("");
+  const [user, loading, error] = useAuthState(auth);
+
+  const register = () => {
+    if (password === cpassword) registerWithEmailAndPassword(email, password);
+  };
 
   const handleSignup = async (e) => {
     e.preventDefault();
+  }
 
-    // Make the HTTP request to the signup API
-    try {
-      const response = await fetch("http://localhost:8000/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username: email,
-          password: password,
-        }),
-      });
-
-      if (response.ok) {
-        // Signup successful
-        console.log("Signup successful");
-        setError("Successfull");
-        // Perform any desired actions after successful signup
-        setEmail("")
-        setPassword("")
-      } else {
-        // Handle error response from the API
-        const errorData = await response.json();
-        setError(errorData.detail);
-      }
-    } catch (error) {
-      console.log("Error:", error);
-
-      // Handle network error
-      setError("Network error occurred. Please try again.");
-    }
-  };
+  useEffect(() => {
+    if (loading) return;
+  }, [user, loading, error]);
 
   return (
     <div>
@@ -71,7 +49,8 @@ const Signup = () => {
           value={cpassword}
           onChange={(e) => setCpassword(e.target.value)}
         />
-        <button type="submit">Sign up</button>
+        <button type="submit" onClick={register}>Sign up</button>
+        <button className="register__btn register__google" onClick={signInWithGoogle}>Register with Google</button>
         {error && <p className="error">{error}</p>}
       </form>
     </div>

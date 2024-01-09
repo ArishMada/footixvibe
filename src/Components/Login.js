@@ -1,53 +1,28 @@
-import React, {useState} from 'react'
+import React, { useEffect, useState } from 'react';
 import { FaDoorOpen } from "react-icons/fa";
-import "./Login.css"
+import "./Login.css";
+import { auth, signInWithGoogle, logInWithEmailAndPassword } from './firebase';
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-
+  const [user, loading, error] = useAuthState(auth);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    // Make the HTTP request to the login API
-    try {
-      const response = await fetch("http://localhost:8000/token", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: new URLSearchParams({
-          username: email,
-          password: password,
-          grant_type: "password",
-          scope: "",
-        }),
-      });
-  
-      if (response.ok) {
-        const data = await response.json();
-        // Access token is available in data.access_token
-        console.log("Access Token:", data.access_token);
-        // Store the email address
-        const userEmail = email;
-        // Set the logged-in state to true
-        // Clear any previous error
-        setError("");
-      } else {
-        // Handle error response from the API
-        const errorData = await response.json();
-        setError(errorData.detail);
-        setPassword("")
-      }
-    } catch (error) {
-      console.log("Error:", error);
-      // Handle network error
-      setError("Network error occurred. Please try again.");
-    }
-  };
+  }
 
+  useEffect(() => {
+    if (loading) {
+      return;
+    }
+
+    if (user) {
+      console.log(user.displayName);
+    }
+    if (error) alert(error);
+  }, [error, loading, user]);
 
   return (
     <div className="login">
@@ -69,7 +44,8 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button type="submit">Login</button>
+          <button type="submit" onClick={() => logInWithEmailAndPassword(email, password)}>Login</button>
+          <button className="login__btn login__google" onClick={signInWithGoogle}>Login with Google</button>
           {error && <p className="error">{error}</p>}
         </form>
     </div>
