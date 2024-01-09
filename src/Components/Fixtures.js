@@ -27,16 +27,25 @@ const Fixtures = () => {
           dataArr.push(data['matches'][i]['homeTeam']['name'])
           dataArr.push(data['matches'][i]['awayTeam']['name'])
           dataArr.push(data['matches'][i]['competition']['name'])
-          dataArr.push(data['matches'][i]['score']['fullTime']['home'] + "-" + data['matches'][i]['score']['fullTime']['away'])
+          if (data['matches'][i]['status'] === "FINISHED") {
+            dataArr.push(data['matches'][i]['score']['fullTime']['home'] + "-" + data['matches'][i]['score']['fullTime']['away'])
+          } else {
+            dataArr.push(data['matches'][i]['status'])
+          }
+
           if (data['matches'][i]['score']['winner'] === "AWAY_TEAM"){
             dataArr.push(data['matches'][i]['awayTeam']['name'])
-          } else {
+          } else if(data['matches'][i]['score']['fullTime']['home'] == 'null'){
+            dataArr.push("Undecided")
+          }
+            else {
             dataArr.push(data['matches'][i]['homeTeam']['name'])
           }
+
           newPL[i] = dataArr
         }
         setPL(newPL);
-        console.log(newPL)
+        console.log(data)
 
       } catch (error) {
         console.error("Error fetching data:", error);
