@@ -3,10 +3,7 @@ import axios from "axios";
 import Navbar from "./Navbar";
 
 const Standings = () => {
-  const [PL, setPL] = useState({});
-
-  const apiUrl = 'http://localhost:5000/api/data';
-  const uri = 'https://api.football-data.org/v4/competitions/PL/matches';
+  const [data, setData] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
