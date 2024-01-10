@@ -1,27 +1,29 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import NewsItem from "./NewsItem";
-import  apiKey from './config';
+import apiKey from "./config";
 
-const NewList = () => {
-  const [articles, setArticles] = useState([]); 
+const NewList = ({ searchQuery }) => {
+  const [articles, setArticles] = useState([]);
 
-  const url =
-    "https://newsapi.org/v2/everything?" +
-    "q=premier%20league OR soccer OR laliga OR champions%20league OR league OR UEFA&" +
-    "language=en&" +
-    "apiKey="+apiKey;
+  const url = `https://newsapi.org/v2/everything?q=${searchQuery}&language=en&apiKey=${apiKey}`;
+
+  console.log({searchQuery})
 
   useEffect(() => {
-    console.log(apiKey)
     const getArticles = async () => {
-      const response = await axios.get(url);
-      setArticles(response.data.articles);
-      console.log(response);
+      try {
+        const response = await axios.get(url);
+        setArticles(response.data.articles);
+        console.log(response);
+      } catch (error) {
+        console.error("Error fetching articles:", error);
+      }
     };
 
     getArticles();
   }, [url]);
+
   const shuffleArray = (array) => {
     const shuffledArray = [...array];
     for (let i = shuffledArray.length - 1; i > 0; i--) {

@@ -64,13 +64,16 @@ const Navbar = () => {
           <Link to="/footixVibe/matches">
             <p>Matches</p>
           </Link>
-          <Link to="/footixVibe/fixtures">
-            <p>Fixtures</p>
-          </Link>
           <Link to="/footixVibe/standings">
             <p>Standings</p>
           </Link>
-          <Link to="/footixVibe/Matches">
+          <Link to="/footixVibe/fixtures">
+            <p>Fixtures</p>
+          </Link>
+          <Link to="/footixVibe/results">
+            <p>Results</p>
+          </Link>
+          <Link to="/footixVibe/news">
             <p>News</p>
           </Link>
           <Link to="/footixVibe/login">

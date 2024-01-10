@@ -317,3 +317,15 @@ nav h2{
 .back-to-top-button:hover {
   background-color: #555;
 }
+
+.logo h2 {
+  background: linear-gradient(to bottom, #DFFF00 0%, #bc7d08 75%);
+  font-style: italic;
+  color: #133862;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+}

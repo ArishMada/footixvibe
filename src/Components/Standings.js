@@ -98,7 +98,7 @@ const Standings = () => {
           <p>Match day: {chosenCompetition.matchDay}</p>
         </div>
       )}
-      <div>
+      <div className="standing-table">
         {chosenCompetition && (
           <table>
             <thead>
