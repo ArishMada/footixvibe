@@ -60,12 +60,31 @@ const Fixtures = () => {
                 groupedMatches[date] = [];
               }
 
+              const dateOptions = {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              };
+              const timeOptions = {
+                hour: "numeric",
+                minute: "numeric",
+                hour12: true,
+              };
+
+              const formattedDate = new Date(date).toLocaleDateString(
+                undefined,
+                dateOptions
+              );
+
+              const formattedTime = new Date(date).toLocaleTimeString(
+                undefined,
+                timeOptions
+              );
+
               groupedMatches[date].push({
-                date: date,
+                date: formattedDate,
                 matchDay: data["matches"][i]["matchday"],
-                time: new Date(
-                  data["matches"][i]["utcDate"]
-                ).toLocaleTimeString(),
+                time: formattedTime,
                 homeTeam: data["matches"][i]["homeTeam"]["name"],
                 awayTeam: data["matches"][i]["awayTeam"]["name"],
                 competition: data["matches"][i]["competition"]["name"],
@@ -112,37 +131,39 @@ const Fixtures = () => {
       )}
       <div className="matches-container">
         {Object.keys(PL).map((date, index) => (
-          <div key={index}>
-            <h3>{date}</h3>
-            {PL[date].map((match, matchIndex) => (
-              <div className="match-card" key={matchIndex}>
-                <div className="team-container">
-                  <div className="team top">
-                    <img
-                      src={match.homeCrest}
-                      alt={match.homeTeam}
-                      className="crest"
-                    />
-                    <div className="team-name">{match.homeTeam}</div>
+          <div className="matches-day" key={index}>
+            <h3>{date} - Matchday </h3>
+            <div className="matches-day-container">
+              {PL[date].map((match, matchIndex) => (
+                <div className="match-card" key={matchIndex}>
+                  <div className="team-container">
+                    <div className="team top">
+                      <img
+                        src={match.homeCrest}
+                        alt={match.homeTeam}
+                        className="crest"
+                      />
+                      <div className="team-name">{match.homeTeam}</div>
+                    </div>
+                    <div className="score-container">
+                      <span className="empty-score">-</span>
+                    </div>
+                    <div className="team bottom">
+                      <img
+                        src={match.awayCrest}
+                        alt={match.awayTeam}
+                        className="crest"
+                      />
+                      <div className="team-name">{match.awayTeam}</div>
+                    </div>
                   </div>
-                  <div className="score-container">
-                    <span className="empty-score">-</span>
-                  </div>
-                  <div className="team bottom">
-                    <img
-                      src={match.awayCrest}
-                      alt={match.awayTeam}
-                      className="crest"
-                    />
-                    <div className="team-name">{match.awayTeam}</div>
+                  <div className="info-container">
+                    <div className="match-date">{match.date}</div>
+                    <div className="match-time">{match.time}</div>
                   </div>
                 </div>
-                <div className="info-container">
-                  <div className="match-date">{match.date}</div>
-                  <div className="match-time">{match.time}</div>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         ))}
       </div>
