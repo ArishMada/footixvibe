@@ -4,6 +4,7 @@ import axios from "axios";
 import Navbar from "./Navbar";
 import "./Fixture.css";
 import CompetitionDropdown from "./CompetitionDropdown";
+import Backtothetop from "./Backtothetop";
 
 const Fixtures = () => {
   const [PL, setPL] = useState([]);
@@ -118,6 +119,7 @@ const Fixtures = () => {
   };
 
   return (
+    <>
     <div className="standing-page">
       <Navbar />
       <CompetitionDropdown
@@ -171,6 +173,8 @@ const Fixtures = () => {
         ))}
       </div>
     </div>
+    <Backtothetop />
+    </>
   );
 };
 

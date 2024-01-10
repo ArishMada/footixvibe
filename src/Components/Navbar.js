@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import "./Navbar.css"
 
 import { HiOutlineBars3 } from "react-icons/hi2";
 import Box from "@mui/material/Box";

@@ -4,6 +4,7 @@ import axios from "axios";
 import Navbar from "./Navbar";
 import "./Fixture.css";
 import CompetitionDropdown from "./CompetitionDropdown";
+import Backtothetop from "./Backtothetop";
 
 const Matches = () => {
   const [PL, setPL] = useState([]);
@@ -49,6 +50,8 @@ const Matches = () => {
           );
           const data = await response.json();
 
+          console.log(data);
+
           const groupedMatches = {};
 
           const dateOptions = {
@@ -60,9 +63,7 @@ const Matches = () => {
             if (data["matches"][i]["status"] === "FINISHED") {
               const date = new Date(
                 data["matches"][i]["utcDate"]
-              ).toLocaleDateString( undefined,
-                dateOptions
-              );
+              ).toLocaleDateString(undefined, dateOptions);
 
               if (!groupedMatches[date]) {
                 groupedMatches[date] = [];
@@ -79,10 +80,9 @@ const Matches = () => {
                 dateOptions
               );
 
-              const formattedTime = new Date(data["matches"][i]["utcDate"]).toLocaleTimeString(
-                undefined,
-                timeOptions
-              );
+              const formattedTime = new Date(
+                data["matches"][i]["utcDate"]
+              ).toLocaleTimeString(undefined, timeOptions);
 
               groupedMatches[date].push({
                 date: formattedDate,
@@ -94,6 +94,8 @@ const Matches = () => {
                 status: data["matches"][i]["status"],
                 homeCrest: data["matches"][i]["homeTeam"]["crest"],
                 awayCrest: data["matches"][i]["awayTeam"]["crest"],
+                homeTeamScore: data["matches"][i]["score"]["fullTime"]["home"],
+                awayTeamScore: data["matches"][i]["score"]["fullTime"]["away"],
               });
             }
           }
@@ -118,59 +120,66 @@ const Matches = () => {
   };
 
   return (
-    <div className="standing-page">
-      <Navbar />
-      <CompetitionDropdown
-        competitions={competitions}
-        chosenCompetition={chosenCompetition}
-        onDropdownChange={handleDropdownChange}
-      />
-      {chosenCompetition && (
-        <div className="competition-title">
-          <img src={chosenCompetition.emblem} alt="Competition Emblem" />
-          <h2>{chosenCompetition.name}</h2>
-          <p>Match day: {chosenCompetition.matchDay}</p>
-        </div>
-      )}
-      <div className="matches-container">
-        {Object.keys(PL).map((date, index) => (
-          <div className="matches-day" key={index}>
-            <h3>{date}</h3>
-            <div className="matches-day-container">
-              {PL[date].map((match, matchIndex) => (
-                <div className="match-card" key={matchIndex}>
-                  <div className="team-container">
-                    <div className="team top">
-                      <img
-                        src={match.homeCrest}
-                        alt={match.homeTeam}
-                        className="crest"
-                      />
-                      <div className="team-name">{match.homeTeam}</div>
-                    </div>
-                    <div className="score-container">
-                      <span className="empty-score">-</span>
-                    </div>
-                    <div className="team bottom">
-                      <img
-                        src={match.awayCrest}
-                        alt={match.awayTeam}
-                        className="crest"
-                      />
-                      <div className="team-name">{match.awayTeam}</div>
-                    </div>
-                  </div>
-                  <div className="info-container">
-                    <div className="match-date">Matchday - {match.matchDay}</div>
-                    <div className="match-time">{match.time}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
+    <>
+      <div className="standing-page">
+        <Navbar />
+        <CompetitionDropdown
+          competitions={competitions}
+          chosenCompetition={chosenCompetition}
+          onDropdownChange={handleDropdownChange}
+        />
+        {chosenCompetition && (
+          <div className="competition-title">
+            <img src={chosenCompetition.emblem} alt="Competition Emblem" />
+            <h2>{chosenCompetition.name}</h2>
+            <p>Match day: {chosenCompetition.matchDay}</p>
           </div>
-        ))}
+        )}
+        <div className="matches-container">
+          {Object.keys(PL).map((date, index) => (
+            <div className="matches-day" key={index}>
+              <h3>{date}</h3>
+              <div className="matches-day-container">
+                {PL[date].map((match, matchIndex) => (
+                  <div className="match-card" key={matchIndex}>
+                    <div className="team-container">
+                      <div className="team top">
+                        <img
+                          src={match.homeCrest}
+                          alt={match.homeTeam}
+                          className="crest"
+                        />
+                        <div className="team-name">{match.homeTeam}</div>
+                      </div>
+                      <div className="score-container">
+                        <span className="score">
+                          {match.homeTeamScore}-{match.awayTeamScore}
+                        </span>
+                      </div>
+                      <div className="team bottom">
+                        <img
+                          src={match.awayCrest}
+                          alt={match.awayTeam}
+                          className="crest"
+                        />
+                        <div className="team-name">{match.awayTeam}</div>
+                      </div>
+                    </div>
+                    <div className="info-container">
+                      <div className="match-date">
+                        Matchday - {match.matchDay}
+                      </div>
+                      <div className="match-time">{match.time}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+      <Backtothetop />
+    </>
   );
 };
 

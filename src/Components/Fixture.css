@@ -1,5 +1,3 @@
-/* Fixture.css */
-
 .standing-page {
     font-family: "Arial", sans-serif;
   }
@@ -35,7 +33,7 @@
     border: 1px solid #ddd;
     border-radius: 10px;
     background-color: #fff;
-    width: 300px;
+    width: 25%;
   }
   
   .info-container {
@@ -75,6 +73,13 @@
   .score-container {
     display: flex;
     align-items: center;
+    justify-content: center;
+  }
+
+  .score {
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin: 0 10px;
   }
   
   .empty-score {

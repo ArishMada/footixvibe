@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import About from "./About";
 import NewList from "../NewList";
 import HomeBG from "./homebg.jpg";
+import Backtothetop from "../Backtothetop";
 
 import { HiOutlineBars3 } from "react-icons/hi2";
 import Box from "@mui/material/Box";
@@ -20,41 +21,6 @@ import { BsTwitter } from "react-icons/bs";
 import { SiLinkedin } from "react-icons/si";
 import { BsYoutube } from "react-icons/bs";
 import { FaFacebookF } from "react-icons/fa";
-
-const BackToTopButton = () => {
-    const [isVisible, setIsVisible] = useState(false);
-  
-    const toggleVisibility = () => {
-      if (window.pageYOffset > 300) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
-    };
-  
-    const scrollToTop = () => {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
-    };
-  
-    useEffect(() => {
-      window.addEventListener("scroll", toggleVisibility);
-      return () => {
-        window.removeEventListener("scroll", toggleVisibility);
-      };
-    }, []);
-  
-    return (
-      <button
-        className={`back-to-top-button ${isVisible ? "visible" : ""}`}
-        onClick={scrollToTop}
-      >
-        &#8593;
-      </button>
-    );
-  };
 
 const LandingPage = () => {
   const [openMenu, setOpenMenu] = useState(false);
@@ -194,7 +160,7 @@ const LandingPage = () => {
           </div>
         </div>
       </div>
-      <BackToTopButton />
+      <Backtothetop />
     </>
   );
 };
