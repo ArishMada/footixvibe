@@ -31,6 +31,7 @@ const Fixtures = () => {
           emblem: competition.emblem,
           code: competition.code,
           matchDay: competition.currentSeason.currentMatchday,
+          type: competition.type
         }));
 
         setCompetitions(newCompetitions);
@@ -87,6 +88,8 @@ const Fixtures = () => {
                 time: formattedTime,
                 homeTeam: data["matches"][i]["homeTeam"]["name"],
                 awayTeam: data["matches"][i]["awayTeam"]["name"],
+                matchDay: data["matches"][i]["matchday"],
+                matchStage: data["matches"][i]["stage"],
                 competition: data["matches"][i]["competition"]["name"],
                 status: data["matches"][i]["status"],
                 homeCrest: data["matches"][i]["homeTeam"]["crest"],
@@ -94,14 +97,6 @@ const Fixtures = () => {
               });
 
               console.log(data["matches"][i]["stage"])
-
-              if (chosenCompetition.type === "CUP") {
-                groupedMatches[date].push({
-                    matchStage: data["matches"][i]["stage"],})
-              } else {
-                groupedMatches[date].push({
-                    matchDay: data["matches"][i]["matchday"],})
-              }
             }
           }
 
@@ -154,7 +149,9 @@ const Fixtures = () => {
                           alt={match.homeTeam}
                           className="crest"
                         />
-                        <div className="team-name">{match.homeTeam}</div>
+                        <div className="team-name">{match.homeTeam ?
+                          `${match.homeTeam}`
+                          : "TBD"}</div>
                       </div>
                       <div className="score-container">
                         <span className="empty-score">-</span>
@@ -165,13 +162,15 @@ const Fixtures = () => {
                           alt={match.awayTeam}
                           className="crest"
                         />
-                        <div className="team-name">{match.awayTeam}</div>
+                        <div className="team-name">{match.awayTeam ?
+                          `${match.awayTeam}`
+                          : "TBD"}</div>
                       </div>
                     </div>
                     <div className="info-container">
                       <div className="match-date">
                         {chosenCompetition.type === "CUP"
-                          ? `Stage - ${match.matchStage}`
+                          ? `Stage - ${match.matchStage.replace(/_/g, ' ')}`
                           : `Matchday - ${match.matchDay}`}
                       </div>
                       <div className="match-time">{match.time}</div>

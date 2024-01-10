@@ -123,7 +123,7 @@ const LandingPage = () => {
           <About />
         </section>
         <section id="News">
-          <NewList searchQuery={"soccer OR premier league OR laliga OR champions%league OR UEFA"}/>
+          <NewList searchQuery={"soccer OR premier%league OR laliga OR champions%league OR UEFA"}/>
         </section>
         <div className="footer-wrapper">
           <div className="footer-section-one">

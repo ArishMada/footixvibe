@@ -30,6 +30,7 @@ const Results = () => {
           emblem: competition.emblem,
           code: competition.code,
           matchDay: competition.currentSeason.currentMatchday,
+          type: competition.type
         }));
 
         setCompetitions(newCompetitions);
@@ -86,6 +87,7 @@ const Results = () => {
               groupedMatches[date].push({
                 date: formattedDate,
                 matchDay: data["matches"][i]["matchday"],
+                matchStage: data["matches"][i]["stage"],
                 time: formattedTime,
                 homeTeam: data["matches"][i]["homeTeam"]["name"],
                 awayTeam: data["matches"][i]["awayTeam"]["name"],
@@ -95,6 +97,7 @@ const Results = () => {
                 awayCrest: data["matches"][i]["awayTeam"]["crest"],
                 homeTeamScore: data["matches"][i]["score"]["fullTime"]["home"],
                 awayTeamScore: data["matches"][i]["score"]["fullTime"]["away"],
+                group: data["matches"][i]["group"],
               });
             }
           }
@@ -166,7 +169,14 @@ const Results = () => {
                     </div>
                     <div className="info-container">
                       <div className="match-date">
-                        Matchday - {match.matchDay}
+                      {chosenCompetition.type === "CUP"
+                          ? `Stage - ${match.matchStage.charAt(0).toUpperCase() + match.matchStage.slice(1).toLowerCase().replace(/_/g, ' ')}`
+                          : `Matchday - ${match.matchDay}`}
+                      </div>
+                      <div className="match-date">
+                      {chosenCompetition.type === "CUP"
+                          ? `Group - ${match.group.charAt(0).toUpperCase() + match.group.slice(1, 6).toLowerCase().replace(/_/g, ' ') + match.group.charAt(6).toUpperCase()}`
+                        : ''}
                       </div>
                       <div className="match-time">{match.time}</div>
                     </div>

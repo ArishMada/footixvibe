@@ -59,7 +59,7 @@ const News = () => {
           {chosenCompetition ? (
             <NewList searchQuery={chosenCompetition.name} />
           ) : (
-            <NewList searchQuery={"soccer"} />
+            <NewList searchQuery={"soccer OR premier%league OR laliga OR champions%league OR UEFA"} />
           )}
         </div>
       </div>
