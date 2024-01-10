@@ -1,64 +1,151 @@
+// Fixtures.js
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "./Navbar";
-import Table from "./Table";
+import "./Fixture.css";
+import CompetitionDropdown from "./CompetitionDropdown";
 
 const Fixtures = () => {
   const [PL, setPL] = useState([]);
+  const [competitions, setCompetitions] = useState([]);
+  const [chosenCompetition, setChosenCompetition] = useState(null);
+  const [matches, setMatches] = useState([]);
 
-  const apiUrl = 'http://localhost:5000/api/data';
-  const uri = 'https://api.football-data.org/v4/competitions/PL/matches';
+  const apiUrl = "http://localhost:5000/api/data";
+  const footballDataApiUrl = "https://api.football-data.org/v4";
+  const matchesEndpoint = "/matches";
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${apiUrl}?uri=${uri}`);
+        const response = await fetch(
+          `${apiUrl}?uri=${footballDataApiUrl}/competitions`
+        );
         const data = await response.json();
-        
-        const newPL = [];
-        for (var i = 0; i < data['matches']['length']; i++){
-          let dataArr = [];
-          const dateOptions = { year: "numeric", month: "long", day: "numeric"};
-          const timeOptions = { hour: "numeric", minute: "numeric", hour12: true };
-          const formattedDate = new Date(data['matches'][i]['utcDate']).toLocaleDateString(undefined, dateOptions);
-          const formattedTime = new Date(data['matches'][i]['utcDate']).toLocaleTimeString(undefined, timeOptions);
-          dataArr.push(formattedDate)
-          dataArr.push(formattedTime)
-          dataArr.push(data['matches'][i]['homeTeam']['name'])
-          dataArr.push(data['matches'][i]['awayTeam']['name'])
-          dataArr.push(data['matches'][i]['competition']['name'])
-          if (data['matches'][i]['status'] === "FINISHED") {
-            dataArr.push(data['matches'][i]['score']['fullTime']['home'] + "-" + data['matches'][i]['score']['fullTime']['away'])
-          } else {
-            dataArr.push(data['matches'][i]['status'])
-          }
 
-          if (data['matches'][i]['score']['winner'] === "AWAY_TEAM"){
-            dataArr.push(data['matches'][i]['awayTeam']['name'])
-          } else if(data['matches'][i]['score']['fullTime']['home'] == 'null'){
-            dataArr.push("Undecided")
-          }
-            else {
-            dataArr.push(data['matches'][i]['homeTeam']['name'])
-          }
+        console.log(data);
 
-          newPL[i] = dataArr
-        }
-        setPL(newPL);
-        console.log(data)
+        const newCompetitions = data.competitions.map((competition) => ({
+          name: competition.name,
+          emblem: competition.emblem,
+          code: competition.code,
+          matchDay: competition.currentSeason.currentMatchday,
+        }));
 
+        setCompetitions(newCompetitions);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching competitions data:", error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (chosenCompetition) {
+        try {
+          const response = await fetch(
+            `${apiUrl}?uri=${footballDataApiUrl}/competitions/${chosenCompetition.code}${matchesEndpoint}`
+          );
+          const data = await response.json();
+
+          const groupedMatches = {};
+          for (let i = 0; i < data["matches"].length; i++) {
+            if (data["matches"][i]["status"] !== "FINISHED") {
+              const date = new Date(
+                data["matches"][i]["utcDate"]
+              ).toLocaleDateString();
+
+              if (!groupedMatches[date]) {
+                groupedMatches[date] = [];
+              }
+
+              groupedMatches[date].push({
+                date: date,
+                matchDay: data["matches"][i]["matchday"],
+                time: new Date(
+                  data["matches"][i]["utcDate"]
+                ).toLocaleTimeString(),
+                homeTeam: data["matches"][i]["homeTeam"]["name"],
+                awayTeam: data["matches"][i]["awayTeam"]["name"],
+                competition: data["matches"][i]["competition"]["name"],
+                status: data["matches"][i]["status"],
+                homeCrest: data["matches"][i]["homeTeam"]["crest"],
+                awayCrest: data["matches"][i]["awayTeam"]["crest"],
+              });
+            }
+          }
+
+          setPL(groupedMatches);
+          console.log(data);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
       }
     };
 
     fetchData();
-  }, []);
+  }, [chosenCompetition]);
+
+  const handleDropdownChange = (event) => {
+    const selectedCode = event.target.value;
+    const selectedCompetition = competitions.find(
+      (competition) => competition.code === selectedCode
+    );
+    setChosenCompetition(selectedCompetition);
+  };
 
   return (
     <div className="standing-page">
       <Navbar />
-      <Table data={PL}/>
+      <CompetitionDropdown
+        competitions={competitions}
+        chosenCompetition={chosenCompetition}
+        onDropdownChange={handleDropdownChange}
+      />
+      {chosenCompetition && (
+        <div className="competition-title">
+          <img src={chosenCompetition.emblem} alt="Competition Emblem" />
+          <h2>{chosenCompetition.name}</h2>
+          <p>Match day: {chosenCompetition.matchDay}</p>
+        </div>
+      )}
+      <div className="matches-container">
+        {Object.keys(PL).map((date, index) => (
+          <div key={index}>
+            <h3>{date}</h3>
+            {PL[date].map((match, matchIndex) => (
+              <div className="match-card" key={matchIndex}>
+                <div className="team-container">
+                  <div className="team top">
+                    <img
+                      src={match.homeCrest}
+                      alt={match.homeTeam}
+                      className="crest"
+                    />
+                    <div className="team-name">{match.homeTeam}</div>
+                  </div>
+                  <div className="score-container">
+                    <span className="empty-score">-</span>
+                  </div>
+                  <div className="team bottom">
+                    <img
+                      src={match.awayCrest}
+                      alt={match.awayTeam}
+                      className="crest"
+                    />
+                    <div className="team-name">{match.awayTeam}</div>
+                  </div>
+                </div>
+                <div className="info-container">
+                  <div className="match-date">{match.date}</div>
+                  <div className="match-time">{match.time}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

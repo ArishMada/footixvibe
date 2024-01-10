@@ -1,0 +1,93 @@
+/* Fixture.css */
+
+.standing-page {
+    font-family: "Arial", sans-serif;
+  }
+  
+  .matches-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap; /* Allow multiple .matches-container > div on the same line */
+  }
+  
+  .match-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 30%;
+    background-color: #fff;
+    color: black;
+  }
+  
+  .match-card h3 {
+    margin-bottom: 10px;
+  }
+  
+  .info-container {
+    flex: 1;
+  }
+  
+  .match-date,
+  .match-time {
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .team-container {
+    display: flex;
+    align-items: center;
+    padding: 2rem;
+  }
+  
+  .team {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .team-name {
+    margin-top: 5px;
+    font-weight: bold;
+  }
+  
+  .crest {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 5px;
+  }
+  
+  .score-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .empty-score {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 10px;
+  }
+  
+  /* Group matches with the same date on the same row */
+  .matches-container > div {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    color: white;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .matches-container {
+      width: 90%;
+    }
+  
+    .match-card {
+      width: 100%;
+    }
+  }
+  

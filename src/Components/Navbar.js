@@ -24,21 +24,21 @@ const Navbar = () => {
   useEffect(() => {
     if (loading) return;
     if (!user) {
-        return navigate("/footixVibe/login");
+      return navigate("/footixVibe/login");
     }
   }, [user, loading]);
 
   const menuOptions = [
     {
-      text: "Home",
+      text: "Matches",
       icon: <HomeIcon />,
     },
     {
-      text: "About",
+      text: "Teams",
       icon: <InfoIcon />,
     },
     {
-      text: "News",
+      text: "Competitions",
       icon: <GroupIcon />,
     },
   ];
@@ -59,13 +59,23 @@ const Navbar = () => {
         <div className="nav-logo-container">
           <h1>FootixVibe</h1>
         </div>
-        <h2>"Football is a part of I"</h2>
         <div className="navbar-links-container">
-          <p onClick={() => scrollToSection("Home")}>Home</p>
-          <p onClick={() => scrollToSection("About")}>About</p>
-          <p onClick={() => scrollToSection("News")}>News</p>
+          <Link to="/footixVibe/matches">
+            <p>Matches</p>
+          </Link>
+          <Link to="/footixVibe/fixtures">
+            <p>Fixtures</p>
+          </Link>
+          <Link to="/footixVibe/standings">
+            <p>Standings</p>
+          </Link>
+          <Link to="/footixVibe/Matches">
+            <p>News</p>
+          </Link>
           <Link to="/footixVibe/login">
-            <button className="primary-button" onClick={logout}>Logout</button>
+            <button className="primary-button" onClick={logout}>
+              Logout
+            </button>
           </Link>
         </div>
         <div className="navbar-menu-container">
