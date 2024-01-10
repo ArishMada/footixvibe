@@ -5,43 +5,38 @@ const Standings = () => {
   const [PL, setPL] = useState({});
   
   const apiUrl = 'http://localhost:5000/api/data';
-  const uri = 'https://api.football-data.org/v4/competitions/PL/standings';
+  const uri = 'https://api.football-data.org/v4/competitions';
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(`${apiUrl}?uri=${uri}`);
         const data = await response.json();
-        
+
         const newPL = {};
-        for (var i = 0; i < data['standings'][0]['table']['length']; i++){
-          let dataDict = {};
-          dataDict['Draw'] = (data['standings'][0]['table'][i]['draw'])
-          dataDict['Goal Difference'] = (data['standings'][0]['table'][i]['goalDifference'])
-          dataDict['Goals Against'] = (data['standings'][0]['table'][i]['goalsAgainst'])
-          dataDict['Goals For'] = (data['standings'][0]['table'][i]['goalsFor'])
-          dataDict['Lost'] = (data['standings'][0]['table'][i]['lost'])
-          dataDict['Played Games'] = (data['standings'][0]['table'][i]['playedGames'])
-          dataDict['Points'] = (data['standings'][0]['table'][i]['points'])
-          dataDict['Position'] = (data['standings'][0]['table'][i]['position'])
-          dataDict['Team'] = (data['standings'][0]['table'][i]['team']['name'])
-          newPL[i] = dataDict
+        for (var i = 0; i < data['competitions']['length']; i++){
+          let dataArr = [];
+          dataArr.push(data['competitions'][i]['name'])
+          dataArr.push(data['competitions'][i]['emblem'])
+          dataArr.push(data['competitions'][i]['currentSeason']['startDate'])
+          dataArr.push(data['competitions'][i]['currentSeason']['endDate'])
+          newPL[i] = dataArr
         }
         setPL(newPL);
         console.log(newPL)
-      }
-      catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    fetchData();
-  }, []);
+    }
+    catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  fetchData();
+}, []);
 
-  return (
-    <div>
-      <Navbar/>
-    </div>
-  )
+return (
+  <div>
+    <Navbar/>
+  </div>
+)
 }
 
 export default Standings
