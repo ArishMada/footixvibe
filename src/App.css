@@ -55,6 +55,10 @@ nav h2{
   display: none;
 }
 
+.navbar-links-container a{
+  text-decoration: none;
+}
+
 .navbar-links-container p {
   display: inline;
   font-size: 1.1rem;
