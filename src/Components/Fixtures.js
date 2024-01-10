@@ -50,21 +50,24 @@ const Fixtures = () => {
           const data = await response.json();
 
           const groupedMatches = {};
+
+          const dateOptions = {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          };
           for (let i = 0; i < data["matches"].length; i++) {
             if (data["matches"][i]["status"] !== "FINISHED") {
               const date = new Date(
                 data["matches"][i]["utcDate"]
-              ).toLocaleDateString();
+              ).toLocaleDateString( undefined,
+                dateOptions
+              );
 
               if (!groupedMatches[date]) {
                 groupedMatches[date] = [];
               }
 
-              const dateOptions = {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              };
               const timeOptions = {
                 hour: "numeric",
                 minute: "numeric",
@@ -76,7 +79,7 @@ const Fixtures = () => {
                 dateOptions
               );
 
-              const formattedTime = new Date(date).toLocaleTimeString(
+              const formattedTime = new Date(data["matches"][i]["utcDate"]).toLocaleTimeString(
                 undefined,
                 timeOptions
               );
@@ -132,7 +135,7 @@ const Fixtures = () => {
       <div className="matches-container">
         {Object.keys(PL).map((date, index) => (
           <div className="matches-day" key={index}>
-            <h3>{date} - Matchday </h3>
+            <h3>{date}</h3>
             <div className="matches-day-container">
               {PL[date].map((match, matchIndex) => (
                 <div className="match-card" key={matchIndex}>
@@ -158,7 +161,7 @@ const Fixtures = () => {
                     </div>
                   </div>
                   <div className="info-container">
-                    <div className="match-date">{match.date}</div>
+                    <div className="match-date">Matchday - {match.matchDay}</div>
                     <div className="match-time">{match.time}</div>
                   </div>
                 </div>
