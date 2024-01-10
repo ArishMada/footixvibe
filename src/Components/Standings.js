@@ -91,10 +91,13 @@ const Standings = () => {
         chosenCompetition={chosenCompetition}
         onDropdownChange={handleDropdownChange}
       />
-      <div className="competition-title">
-            <img src={chosenCompetition.emblem} alt="Competition Emblem" />
-            <h2>{chosenCompetition.name}</h2>
-          </div>
+       {chosenCompetition && (
+        <div className="competition-title">
+          <img src={chosenCompetition.emblem} alt="Competition Emblem" />
+          <h2>{chosenCompetition.name}</h2>
+          <p>Match day: {chosenCompetition.matchDay}</p>
+        </div>
+      )}
       <div>
         {chosenCompetition && (
           <table>
