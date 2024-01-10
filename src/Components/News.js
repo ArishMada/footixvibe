@@ -10,7 +10,6 @@ const News = () => {
 
   const apiUrl = "http://localhost:5000/api/data";
   const footballDataApiUrl = "https://api.football-data.org/v4";
-  const matchesEndpoint = "/standings";
 
   useEffect(() => {
     const fetchData = async () => {

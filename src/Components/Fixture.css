@@ -5,7 +5,7 @@
 .matches-container {
   display: flex;
   flex-direction: column;
-  margin: 2rem;
+  margin: 1.5rem;
 }
 
 .matches-day {

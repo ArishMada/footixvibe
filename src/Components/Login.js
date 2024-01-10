@@ -33,7 +33,7 @@ const Login = () => {
       navigate("/footixVibe/matches", { replace: true });
     }
     if (error) alert(error);
-  }, [error, loading, user]);
+  }, [error, loading, navigate, user]);
 
   return (
     <div className="login">

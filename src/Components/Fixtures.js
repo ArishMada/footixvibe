@@ -1,6 +1,5 @@
 // Fixtures.js
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import Navbar from "./Navbar";
 import "./Fixture.css";
 import CompetitionDropdown from "./CompetitionDropdown";
@@ -10,7 +9,6 @@ const Fixtures = () => {
   const [PL, setPL] = useState([]);
   const [competitions, setCompetitions] = useState([]);
   const [chosenCompetition, setChosenCompetition] = useState(null);
-  const [matches, setMatches] = useState([]);
 
   const apiUrl = "http://localhost:5000/api/data";
   const footballDataApiUrl = "https://api.football-data.org/v4";

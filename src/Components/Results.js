@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import Navbar from "./Navbar";
 import CompetitionDropdown from "./CompetitionDropdown";
 import Backtothetop from "./Backtothetop";
@@ -9,7 +8,6 @@ const Results = () => {
   const [PL, setPL] = useState([]);
   const [competitions, setCompetitions] = useState([]);
   const [chosenCompetition, setChosenCompetition] = useState(null);
-  const [matches, setMatches] = useState([]);
 
   const apiUrl = "http://localhost:5000/api/data";
   const footballDataApiUrl = "https://api.football-data.org/v4";
@@ -155,7 +153,7 @@ const Results = () => {
                       </div>
                       <div className="score-container">
                         <span className="score">
-                          {match.homeTeamScore}-{match.awayTeamScore}
+                          {match.homeTeamScore}  -  {match.awayTeamScore}
                         </span>
                       </div>
                       <div className="team bottom">
@@ -174,7 +172,7 @@ const Results = () => {
                           : `Matchday - ${match.matchDay}`}
                       </div>
                       <div className="match-date">
-                      {chosenCompetition.type === "CUP"
+                      {chosenCompetition.type === "CUP" && match.group
                           ? `Group - ${match.group.charAt(0).toUpperCase() + match.group.slice(1, 6).toLowerCase().replace(/_/g, ' ') + match.group.charAt(6).toUpperCase()}`
                         : ''}
                       </div>

@@ -30,7 +30,7 @@ nav {
   align-items: center;
   justify-content: space-between;
   height: 8vh;
-  background: linear-gradient(to bottom, #DFFF00 0%, #bc7d08 75%);
+  background: linear-gradient(to bottom, #dfff00 0%, #bc7d08 75%);
   color: #133862;
 }
 
@@ -39,13 +39,13 @@ nav {
   font-weight: 1000;
 }
 
-.nav-logo-container h1{
+.nav-logo-container h1 {
   font-style: italic;
   font-size: 2rem;
   font-weight: 1200;
 }
 
-nav h2{
+nav h2 {
   font-style: italic;
   font-size: 1.5rem;
   font-weight: 1200;
@@ -55,7 +55,7 @@ nav h2{
   display: none;
 }
 
-.navbar-links-container a{
+.navbar-links-container a {
   text-decoration: none;
 }
 
@@ -66,7 +66,13 @@ nav h2{
   padding: 1.23rem 1.23rem;
 }
 
-.navbar-links-container p:hover, .navbar-links-container p:active,
+.navbar-links-container p:hover {
+  background-color: #bc7d08;
+  transition: 500ms;
+  color: #19304a;
+  cursor: pointer;
+}
+
 .navbar-links-container p.active {
   background-color: #bc7d08;
   transition: 500ms;
@@ -98,20 +104,22 @@ nav h2{
 }
 
 .sideMenu svg {
-  color:#ffffff;
+  color: #ffffff;
 }
 
-.sideMenuItem {
+.sideMenu .sideMenuItem a {
   color: white;
   transition: 0.3s;
 }
 
-.sideMenuItem:hover {
-  color:#ffffff;
+.sideMenu .sideMenuItem:hover {
+  color: #ffffff;
   background-color: #0077b6;
   padding-top: 0.8rem;
   padding-bottom: 0.8rem;
 }
+
+
 
 .home-banner-container {
   background-color: #212121;
@@ -196,7 +204,8 @@ nav h2{
     max-width: 450px;
   }
   .home-banner-container,
-  .about-section-container, .productivity-section-container {
+  .about-section-container,
+  .productivity-section-container {
     flex-direction: column-reverse;
     align-items: center;
     justify-content: center;
@@ -222,7 +231,7 @@ nav h2{
 .about-section-image-container img {
   padding: 1rem;
   background-color: #0c0f10;
-  height: 28rem;  
+  height: 28rem;
 }
 
 .about-section-text-container {
@@ -284,7 +293,7 @@ nav h2{
   color: #ffffff;
   cursor: pointer;
 }
-.footer-section-columns span.footer-title{
+.footer-section-columns span.footer-title {
   margin: 0.5rem 0rem;
   cursor: default;
   text-decoration: underline;
@@ -320,7 +329,7 @@ nav h2{
 }
 
 .logo h2 {
-  background: linear-gradient(to bottom, #DFFF00 0%, #bc7d08 75%);
+  background: linear-gradient(to bottom, #dfff00 0%, #bc7d08 75%);
   font-style: italic;
   color: #133862;
   padding: 1rem;

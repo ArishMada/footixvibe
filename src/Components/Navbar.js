@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import "./Navbar.css"
+import { Link, useLocation } from "react-router-dom";
+import "./Navbar.css";
 
 import { HiOutlineBars3 } from "react-icons/hi2";
 import Box from "@mui/material/Box";
@@ -10,37 +10,51 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import HomeIcon from "@mui/icons-material/Home";
-import InfoIcon from "@mui/icons-material/Info";
+import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
+import SkipNextIcon from '@mui/icons-material/SkipNext';
 import GroupIcon from "@mui/icons-material/Group";
+import StadiumIcon from '@mui/icons-material/Stadium';
 import { auth, logout } from "./firebase";
 import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
+import ScoreboardIcon from '@mui/icons-material/Scoreboard';
+import NewspaperIcon from '@mui/icons-material/Newspaper';
 
 const Navbar = () => {
   const [openMenu, setOpenMenu] = useState(false);
+  const location = useLocation();
   const navigate = useNavigate();
-  const [user, loading, error] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
+
+  console.log(location);
 
   useEffect(() => {
     if (loading) return;
     if (!user) {
       return navigate("/footixVibe/login");
     }
-  }, [user, loading]);
+  }, [user, loading, navigate]);
 
   const menuOptions = [
     {
       text: "Matches",
-      icon: <HomeIcon />,
+      icon: <StadiumIcon />,
     },
     {
-      text: "Teams",
-      icon: <InfoIcon />,
+      text: "Standings",
+      icon: <FormatListNumberedIcon />,
     },
     {
-      text: "Competitions",
-      icon: <GroupIcon />,
+      text: "Fixtures",
+      icon: <SkipNextIcon />,
+    },
+    {
+      text: "Results",
+      icon: <ScoreboardIcon />,
+    },
+    {
+      text: "News",
+      icon: <NewspaperIcon />,
     },
   ];
 
@@ -62,19 +76,49 @@ const Navbar = () => {
         </div>
         <div className="navbar-links-container">
           <Link to="/footixVibe/matches">
-            <p>Matches</p>
+            <p
+              className={
+                location.pathname === "/footixVibe/matches" ? "active" : ""
+              }
+            >
+              Matches
+            </p>
           </Link>
           <Link to="/footixVibe/standings">
-            <p>Standings</p>
+            <p
+              className={
+                location.pathname === "/footixVibe/standings" ? "active" : ""
+              }
+            >
+              Standings
+            </p>
           </Link>
           <Link to="/footixVibe/fixtures">
-            <p>Fixtures</p>
+            <p
+              className={
+                location.pathname === "/footixVibe/fixtures" ? "active" : ""
+              }
+            >
+              Fixtures
+            </p>
           </Link>
           <Link to="/footixVibe/results">
-            <p>Results</p>
+            <p
+              className={
+                location.pathname === "/footixVibe/results" ? "active" : ""
+              }
+            >
+              Results
+            </p>
           </Link>
           <Link to="/footixVibe/news">
-            <p>News</p>
+            <p
+              className={
+                location.pathname === "/footixVibe/news" ? "active" : ""
+              }
+            >
+              News
+            </p>
           </Link>
           <Link to="/footixVibe/login">
             <button className="primary-button" onClick={logout}>
@@ -102,11 +146,20 @@ const Navbar = () => {
                   className="sideMenuItem"
                   key={item.text}
                   disablePadding
+                  onClick={() => {
+                    setOpenMenu(false);
+                    scrollToSection(item.text);
+                  }}
                 >
-                  <ListItemButton onClick={() => scrollToSection(item.text)}>
-                    <ListItemIcon>{item.icon}</ListItemIcon>
-                    <ListItemText primary={item.text} />
-                  </ListItemButton>
+                  <Link
+                    to={`/footixVibe/${item.text.toLowerCase()}`}
+                    className="sideMenuLink"
+                  >
+                    <ListItemButton>
+                      <ListItemIcon>{item.icon}</ListItemIcon>
+                      <ListItemText primary={item.text} />
+                    </ListItemButton>
+                  </Link>
                 </ListItem>
               ))}
             </List>
