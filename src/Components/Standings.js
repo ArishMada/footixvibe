@@ -30,7 +30,7 @@ const Standings = () => {
           name: competition.name,
           emblem: competition.emblem,
           code: competition.code,
-          country: competition.area.name
+          matchDay: competition.currentSeason.currentMatchday,
         }));
 
         setCompetitions(newCompetitions);
