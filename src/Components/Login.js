@@ -30,7 +30,7 @@ const Login = () => {
     if (user) {
       console.log("has user")
       console.log(user.displayName);
-      navigate("/footixVibe/matches", { replace: true });
+      navigate("/footixVibe/standings", { replace: true });
     }
     if (error) alert(error);
   }, [error, loading, navigate, user]);
