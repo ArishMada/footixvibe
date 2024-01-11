@@ -56,9 +56,9 @@ const News = () => {
         />
         <div className="news-page-container">
           {chosenCompetition ? (
-            <NewList searchQuery={chosenCompetition.name} />
+            <NewList searchQuery={chosenCompetition.name} shuffleNumber={60}/>
           ) : (
-            <NewList searchQuery={"soccer OR premier%league OR laliga OR champions%league OR UEFA"} />
+            <NewList searchQuery={"soccer OR premier%league OR laliga OR champions%league OR UEFA"} shuffleNumber={60}/>
           )}
         </div>
       </div>

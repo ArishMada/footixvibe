@@ -3,7 +3,7 @@ import axios from "axios";
 import NewsItem from "./NewsItem";
 import apiKey from "./config";
 
-const NewList = ({ searchQuery }) => {
+const NewList = ({ searchQuery, shuffleNumber }) => {
   const [articles, setArticles] = useState([]);
 
   const url = `https://newsapi.org/v2/everything?q=${searchQuery}&language=en&apiKey=${apiKey}`;
@@ -36,7 +36,7 @@ const NewList = ({ searchQuery }) => {
     return shuffledArray;
   };
 
-  const limitedArticles = shuffleArray(articles).slice(0, 12);
+  const limitedArticles = shuffleArray(articles).slice(0, shuffleNumber);
 
   return (
     <div className="news-container" id="#News">
