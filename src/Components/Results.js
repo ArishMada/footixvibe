@@ -8,6 +8,7 @@ const Results = () => {
   const [PL, setPL] = useState([]);
   const [competitions, setCompetitions] = useState([]);
   const [chosenCompetition, setChosenCompetition] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const apiUrl = "http://localhost:5000/api/data";
   const footballDataApiUrl = "https://api.football-data.org/v4";
@@ -28,7 +29,7 @@ const Results = () => {
           emblem: competition.emblem,
           code: competition.code,
           matchDay: competition.currentSeason.currentMatchday,
-          type: competition.type
+          type: competition.type,
         }));
 
         setCompetitions(newCompetitions);
@@ -116,9 +117,48 @@ const Results = () => {
     const selectedCompetition = competitions.find(
       (competition) => competition.code === selectedCode
     );
+
+    setSearchQuery("");
     setChosenCompetition(selectedCompetition);
   };
 
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const filteredMatches = Object.fromEntries(
+    Object.entries(PL)
+      .filter(([date, matches]) =>
+        matches.some(
+          (match) =>
+            (match.homeTeam &&
+              match.homeTeam
+                .toLowerCase()
+                .includes(searchQuery.toLowerCase())) ||
+            (match.awayTeam &&
+              match.awayTeam.toLowerCase().includes(searchQuery.toLowerCase()))
+        )
+      )
+      .map(([date, matches]) => [
+        date,
+        searchQuery
+          ? matches.filter(
+              (match) =>
+                (match.homeTeam &&
+                  match.homeTeam
+                    .toLowerCase()
+                    .includes(searchQuery.toLowerCase())) ||
+                (match.awayTeam &&
+                  match.awayTeam
+                    .toLowerCase()
+                    .includes(searchQuery.toLowerCase()))
+            )
+          : matches.map((match) => ({
+              ...match,
+              matchStage: match.matchStage.replace(/_/g, " "), // Replace underscores with spaces
+            })),
+      ])
+  );
   return (
     <>
       <div className="standing-page">
@@ -133,14 +173,22 @@ const Results = () => {
             <img src={chosenCompetition.emblem} alt="Competition Emblem" />
             <h2>{chosenCompetition.name}</h2>
             <p>Match day: {chosenCompetition.matchDay}</p>
+            <input
+              type="text"
+              placeholder="Search by team..."
+              value={searchQuery}
+              onChange={handleSearchChange}
+              className="search-team"
+            />
           </div>
         )}
+
         <div className="matches-container">
-          {Object.keys(PL).map((date, index) => (
+          {Object.keys(filteredMatches).map((date, index) => (
             <div className="matches-day" key={index}>
               <h3>{date}</h3>
               <div className="matches-day-container">
-                {PL[date].map((match, matchIndex) => (
+                {filteredMatches[date].map((match, matchIndex) => (
                   <div className="match-card" key={matchIndex}>
                     <div className="team-container">
                       <div className="team top">
@@ -149,7 +197,9 @@ const Results = () => {
                           alt={match.homeTeam}
                           className="crest"
                         />
-                        <div className="team-name">{match.homeTeam}</div>
+                        <div className="team-name">
+                          {match.homeTeam ? `${match.homeTeam}` : "TBD"}
+                        </div>
                       </div>
                       <div className="score-container">
                         <span className="score">
@@ -162,19 +212,34 @@ const Results = () => {
                           alt={match.awayTeam}
                           className="crest"
                         />
-                        <div className="team-name">{match.awayTeam}</div>
+                        <div className="team-name">
+                          {match.awayTeam ? `${match.awayTeam}` : "TBD"}
+                        </div>
                       </div>
                     </div>
                     <div className="info-container">
                       <div className="match-date">
-                      {chosenCompetition.type === "CUP"
-                          ? `Stage - ${match.matchStage.charAt(0).toUpperCase() + match.matchStage.slice(1).toLowerCase().replace(/_/g, ' ')}`
+                        {chosenCompetition.type === "CUP"
+                          ? `Stage - ${
+                            match.matchStage.charAt(0).toUpperCase() +
+                            match.matchStage
+                              .slice(1)
+                              .toLowerCase()
+                              .replace(/_/g, " ")
+                          }`
                           : `Matchday - ${match.matchDay}`}
                       </div>
                       <div className="match-date">
-                      {chosenCompetition.type === "CUP" && match.group
-                          ? `Group - ${match.group.charAt(0).toUpperCase() + match.group.slice(1, 6).toLowerCase().replace(/_/g, ' ') + match.group.charAt(6).toUpperCase()}`
-                        : ''}
+                        {chosenCompetition.type === "CUP" && match.group
+                          ? `Group - ${
+                              match.group.charAt(0).toUpperCase() +
+                              match.group
+                                .slice(1, 6)
+                                .toLowerCase()
+                                .replace(/_/g, " ") +
+                              match.group.charAt(6).toUpperCase()
+                            }`
+                          : ""}
                       </div>
                       <div className="match-time">{match.time}</div>
                     </div>

@@ -88,6 +88,19 @@
   margin: 0 10px;
 }
 
+.competition-title .search-team {
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: #fff;
+}
+
+.competition-title .search-team::placeholder {
+  color: #aaa;
+}
+
 /* Responsive styles */
 @media (max-width: 768px) {
   .matches-container {

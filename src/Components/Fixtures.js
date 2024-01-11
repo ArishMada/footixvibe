@@ -1,4 +1,3 @@
-// Fixtures.js
 import React, { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import "./Fixture.css";
@@ -9,6 +8,7 @@ const Fixtures = () => {
   const [PL, setPL] = useState([]);
   const [competitions, setCompetitions] = useState([]);
   const [chosenCompetition, setChosenCompetition] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const apiUrl = "http://localhost:5000/api/data";
   const footballDataApiUrl = "https://api.football-data.org/v4";
@@ -29,7 +29,7 @@ const Fixtures = () => {
           emblem: competition.emblem,
           code: competition.code,
           matchDay: competition.currentSeason.currentMatchday,
-          type: competition.type
+          type: competition.type,
         }));
 
         setCompetitions(newCompetitions);
@@ -92,9 +92,10 @@ const Fixtures = () => {
                 status: data["matches"][i]["status"],
                 homeCrest: data["matches"][i]["homeTeam"]["crest"],
                 awayCrest: data["matches"][i]["awayTeam"]["crest"],
+                group: data["matches"][i]["group"],
               });
 
-              console.log(data["matches"][i]["stage"])
+              console.log(data["matches"][i]["stage"]);
             }
           }
 
@@ -114,8 +115,42 @@ const Fixtures = () => {
     const selectedCompetition = competitions.find(
       (competition) => competition.code === selectedCode
     );
+
+    setSearchQuery("");
     setChosenCompetition(selectedCompetition);
   };
+
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const filteredMatches = Object.fromEntries(
+    Object.entries(PL)
+      .filter(([date, matches]) =>
+        matches.some(
+          (match) =>
+            (match.homeTeam &&
+              match.homeTeam.toLowerCase().includes(searchQuery.toLowerCase())) ||
+            (match.awayTeam &&
+              match.awayTeam.toLowerCase().includes(searchQuery.toLowerCase()))
+        )
+      )
+      .map(([date, matches]) => [
+        date,
+        searchQuery
+          ? matches.filter(
+              (match) =>
+                (match.homeTeam &&
+                  match.homeTeam.toLowerCase().includes(searchQuery.toLowerCase())) ||
+                (match.awayTeam &&
+                  match.awayTeam.toLowerCase().includes(searchQuery.toLowerCase()))
+            )
+          : matches.map((match) => ({
+              ...match,
+            })),
+      ])
+  );
+  
 
   return (
     <>
@@ -131,14 +166,22 @@ const Fixtures = () => {
             <img src={chosenCompetition.emblem} alt="Competition Emblem" />
             <h2>{chosenCompetition.name}</h2>
             <p>Match day: {chosenCompetition.matchDay}</p>
+            <input
+              type="text"
+              placeholder="Search by team..."
+              value={searchQuery}
+              onChange={handleSearchChange}
+              className="search-team"
+            />
           </div>
         )}
+
         <div className="matches-container">
-          {Object.keys(PL).map((date, index) => (
+          {Object.keys(filteredMatches).map((date, index) => (
             <div className="matches-day" key={index}>
               <h3>{date}</h3>
               <div className="matches-day-container">
-                {PL[date].map((match, matchIndex) => (
+                {filteredMatches[date].map((match, matchIndex) => (
                   <div className="match-card" key={matchIndex}>
                     <div className="team-container">
                       <div className="team top">
@@ -147,9 +190,9 @@ const Fixtures = () => {
                           alt={match.homeTeam}
                           className="crest"
                         />
-                        <div className="team-name">{match.homeTeam ?
-                          `${match.homeTeam}`
-                          : "TBD"}</div>
+                        <div className="team-name">
+                          {match.homeTeam ? `${match.homeTeam}` : "TBD"}
+                        </div>
                       </div>
                       <div className="score-container">
                         <span className="empty-score">-</span>
@@ -160,16 +203,34 @@ const Fixtures = () => {
                           alt={match.awayTeam}
                           className="crest"
                         />
-                        <div className="team-name">{match.awayTeam ?
-                          `${match.awayTeam}`
-                          : "TBD"}</div>
+                        <div className="team-name">
+                          {match.awayTeam ? `${match.awayTeam}` : "TBD"}
+                        </div>
                       </div>
                     </div>
                     <div className="info-container">
                       <div className="match-date">
                         {chosenCompetition.type === "CUP"
-                          ? `Stage - ${match.matchStage.replace(/_/g, ' ')}`
+                          ? `Stage - ${
+                            match.matchStage.charAt(0).toUpperCase() +
+                            match.matchStage
+                              .slice(1)
+                              .toLowerCase()
+                              .replace(/_/g, " ")
+                          }`
                           : `Matchday - ${match.matchDay}`}
+                      </div>
+                      <div className="match-date">
+                        {chosenCompetition.type === "CUP" && match.group
+                          ? `Group - ${
+                              match.group.charAt(0).toUpperCase() +
+                              match.group
+                                .slice(1, 6)
+                                .toLowerCase()
+                                .replace(/_/g, " ") +
+                              match.group.charAt(6).toUpperCase()
+                            }`
+                          : ""}
                       </div>
                       <div className="match-time">{match.time}</div>
                     </div>
