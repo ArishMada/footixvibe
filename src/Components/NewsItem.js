@@ -12,7 +12,7 @@ const NewsItem = ({ title, description, url, urlToImage, publishedAt }) => {
     <div className="news-item">
       <img className="news-img" src={urlToImage} alt={urlToImage} />
       <h3>
-        <a href={url}>{title}</a>
+        <a href={url} target="_blank" rel="noopener noreferrer">{title}</a>
       </h3>
       <p>{description}</p>
       <p className="date">{formattedDate}</p>
