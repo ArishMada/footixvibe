@@ -93,6 +93,12 @@ const sendPasswordReset = async (email) => {
   }
 };
 
+const handleWindowUnload = () => {
+  signOut(auth);
+  // Clear user-related information from localStorage
+  localStorage.removeItem("user"); // Adjust the key as per your application's structure
+};
+
 const logout = () => {
   signOut(auth);
 };
@@ -104,5 +110,6 @@ export {
   logInWithEmailAndPassword,
   registerWithEmailAndPassword,
   sendPasswordReset,
+  handleWindowUnload,
   logout,
 };

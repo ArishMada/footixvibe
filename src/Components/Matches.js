@@ -4,6 +4,7 @@ import Navbar from "./Navbar";
 import "./Fixture.css";
 import CompetitionDropdown from "./CompetitionDropdown";
 import Backtothetop from "./Backtothetop";
+import { handleWindowUnload } from "./firebase";
 
 const Matches = () => {
   const [PL, setPL] = useState([]);
@@ -13,6 +14,8 @@ const Matches = () => {
   const apiUrl = "http://localhost:5000/api/data";
   const footballDataApiUrl = "https://api.football-data.org/v4";
   const matchesEndpoint = "/matches";
+  
+  window.addEventListener("beforeunload", handleWindowUnload)
 
   useEffect(() => {
     const fetchData = async () => {

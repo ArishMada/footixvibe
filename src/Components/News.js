@@ -3,6 +3,7 @@ import Navbar from "./Navbar";
 import Backtothetop from "./Backtothetop";
 import CompetitionDropdown from "./CompetitionDropdown";
 import NewList from "./NewList";
+import { handleWindowUnload } from "./firebase";
 
 const News = () => {
   const [competitions, setCompetitions] = useState([]);
@@ -10,6 +11,8 @@ const News = () => {
 
   const apiUrl = "http://localhost:5000/api/data";
   const footballDataApiUrl = "https://api.football-data.org/v4";
+
+  window.addEventListener("beforeunload", handleWindowUnload)
 
   useEffect(() => {
     const fetchData = async () => {
