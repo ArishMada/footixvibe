@@ -1,4 +1,3 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import {
   GoogleAuthProvider,
@@ -19,7 +18,6 @@ import {
   addDoc,
 } from "firebase/firestore";
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyCoTkyvdkWbcG5mHi5PZaQVF_5bjjseApI",
   authDomain: "footixvibe-62c41.firebaseapp.com",
@@ -30,12 +28,10 @@ const firebaseConfig = {
   measurementId: "G-38X577TXGD"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
-//google auth
 const googleProvider = new GoogleAuthProvider();
 const signInWithGoogle = async () => {
   try {
@@ -58,7 +54,6 @@ const signInWithGoogle = async () => {
   }
 };
 
-// username and password
 const logInWithEmailAndPassword = async (email, password) => {
   try {
     await signInWithEmailAndPassword(auth, email, password);
@@ -68,7 +63,6 @@ const logInWithEmailAndPassword = async (email, password) => {
   }
 };
 
-// register with email and password
 const registerWithEmailAndPassword = async (email, password) => {
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
