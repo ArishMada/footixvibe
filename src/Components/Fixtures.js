@@ -3,7 +3,7 @@ import Navbar from "./Navbar";
 import "./Fixture.css";
 import CompetitionDropdown from "./CompetitionDropdown";
 import Backtothetop from "./Backtothetop";
-import { handleWindowUnload } from "./firebase";
+import { handleAuthStateChange, handleWindowUnload } from "./firebase";
 
 const Fixtures = () => {
   const [PL, setPL] = useState([]);
@@ -15,7 +15,8 @@ const Fixtures = () => {
   const footballDataApiUrl = "https://api.football-data.org/v4";
   const matchesEndpoint = "/matches";
 
-  window.addEventListener("beforeunload", handleWindowUnload)
+  window.addEventListener("beforeunload", handleWindowUnload);
+  handleAuthStateChange();
 
   useEffect(() => {
     const fetchData = async () => {

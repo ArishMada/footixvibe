@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import CompetitionDropdown from "./CompetitionDropdown";
 import "./Standing.css";
-import { handleWindowUnload } from "./firebase";
+import { handleAuthStateChange, handleWindowUnload } from "./firebase";
 
 const Standings = () => {
   const [standings, setStandings] = useState([]);
@@ -15,7 +15,8 @@ const Standings = () => {
   const footballDataApiUrl = "https://api.football-data.org/v4";
   const standingsEndpoint = "/standings";
 
-  window.addEventListener("beforeunload", handleWindowUnload)
+  window.addEventListener("beforeunload", handleWindowUnload);
+  handleAuthStateChange();
 
   useEffect(() => {
     const fetchData = async () => {

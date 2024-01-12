@@ -7,6 +7,7 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
+  onAuthStateChanged,
   signOut,
 } from "firebase/auth";
 import {
@@ -93,10 +94,21 @@ const sendPasswordReset = async (email) => {
   }
 };
 
+const handleAuthStateChange = () => {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const timeoutDuration = 4 * 60 * 60 * 1000;
+      setTimeout(() => {
+        signOut(auth);
+        localStorage.removeItem("user");
+      }, timeoutDuration);
+    }
+  });
+};
+
 const handleWindowUnload = () => {
   signOut(auth);
-  // Clear user-related information from localStorage
-  localStorage.removeItem("user"); // Adjust the key as per your application's structure
+  localStorage.removeItem("user");
 };
 
 const logout = () => {
@@ -110,6 +122,7 @@ export {
   logInWithEmailAndPassword,
   registerWithEmailAndPassword,
   sendPasswordReset,
+  handleAuthStateChange,
   handleWindowUnload,
   logout,
 };
