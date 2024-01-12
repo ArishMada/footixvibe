@@ -58,3 +58,7 @@ tr:hover {
   margin-top: 0.2rem;
 }
 
+#groupDropdown {
+  width: 6rem;
+  background-color: #465298;
+}

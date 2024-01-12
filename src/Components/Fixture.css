@@ -20,7 +20,8 @@
 .matches-day-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  width: 100%;
+  gap: 39px;
 }
 
 .match-card {
@@ -32,7 +33,7 @@
   border: 1px solid #ddd;
   border-radius: 10px;
   background-color: #fff;
-  width: 25%;
+  width: 23%;
 }
 
 .info-container {
