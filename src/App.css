@@ -30,8 +30,8 @@ nav {
   align-items: center;
   justify-content: space-between;
   height: 8vh;
-  background: linear-gradient(to bottom, #dfff00 0%, #bc7d08 75%);
-  color: #133862;
+  background: #0B60B0;
+  color: #e1e4e7;
 }
 
 .nav-logo-container {
@@ -42,7 +42,7 @@ nav {
 .nav-logo-container h1 {
   font-style: italic;
   font-size: 2rem;
-  font-weight: 1200;
+  font-weight: 1000;
 }
 
 nav h2 {
@@ -64,17 +64,18 @@ nav h2 {
   font-size: 1.1rem;
   font-weight: 600;
   padding: 1.23rem 1.23rem;
+  color: #e1e4e7;
 }
 
 .navbar-links-container p:hover {
-  background-color: #bc7d08;
+  background-color: #40A2D8;
   transition: 500ms;
   color: #19304a;
   cursor: pointer;
 }
 
 .navbar-links-container p.active {
-  background-color: #bc7d08;
+  background-color: #40A2D8;
   transition: 500ms;
   color: #19304a;
   cursor: pointer;
@@ -82,7 +83,7 @@ nav h2 {
 
 .primary-button {
   padding: 0.9rem 1.75rem;
-  background-color: #ffa600;
+  background-color: #F0EDCF;
   color: #133862;
   outline: none;
   border: none;
@@ -163,14 +164,14 @@ nav h2 {
 
 .secondary-button {
   padding: 1rem 2.5rem;
-  background-color: #ffa600;
+  background-color: #F0EDCF;
   outline: none;
   border: none;
   border-radius: 5rem;
   font-size: 1.1rem;
   cursor: pointer;
   font-weight: 600;
-  color: white;
+  color: #133862;
   transition: 0.2s;
   display: flex;
   align-items: center;
@@ -182,7 +183,8 @@ nav h2 {
   font-size: 1.5rem;
 }
 .secondary-button:hover {
-  background-color: #0f16e4;
+  background-color: #133862;
+  color: #F0EDCF;
 }
 
 @media (max-width: 800px) {
@@ -244,9 +246,9 @@ nav h2 {
 
 .primary-subheading {
   font-weight: 700;
-  color: #fe9e0d;
+  color: #40A2D8;
   font-size: 1.25rem;
-  border-bottom: 1px solid #fe9e0d;
+  border-bottom: 1px solid #40A2D8;
 }
 
 .primary-heading {
@@ -329,11 +331,14 @@ nav h2 {
 }
 
 .logo h2 {
-  background: linear-gradient(to bottom, #dfff00 0%, #bc7d08 75%);
+  background: #0B60B0;
   font-style: italic;
-  color: #133862;
-  padding: 1rem;
+  color: #e1e4e7;
+  padding: 0.45rem;
+  padding-left: 1.25rem;
   cursor: pointer;
+  font-size: 2rem;
+  font-weight: 1000;
 }
 
 a {
