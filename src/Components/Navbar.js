@@ -10,15 +10,15 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
-import SkipNextIcon from '@mui/icons-material/SkipNext';
-import GroupIcon from "@mui/icons-material/Group";
-import StadiumIcon from '@mui/icons-material/Stadium';
+import FormatListNumberedIcon from "@mui/icons-material/FormatListNumbered";
+import SkipNextIcon from "@mui/icons-material/SkipNext";
+import LogoutIcon from "@mui/icons-material/Logout";
+import StadiumIcon from "@mui/icons-material/Stadium";
 import { auth, logout } from "./firebase";
 import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
-import ScoreboardIcon from '@mui/icons-material/Scoreboard';
-import NewspaperIcon from '@mui/icons-material/Newspaper';
+import ScoreboardIcon from "@mui/icons-material/Scoreboard";
+import NewspaperIcon from "@mui/icons-material/Newspaper";
 
 const Navbar = () => {
   const [openMenu, setOpenMenu] = useState(false);
@@ -55,6 +55,14 @@ const Navbar = () => {
     {
       text: "News",
       icon: <NewspaperIcon />,
+    },
+    {
+      text: "Logout",
+      icon: <LogoutIcon />,
+      action: () => {
+        setOpenMenu(false);
+        logout();
+      },
     },
   ];
 
@@ -147,19 +155,31 @@ const Navbar = () => {
                   key={item.text}
                   disablePadding
                   onClick={() => {
-                    setOpenMenu(false);
-                    scrollToSection(item.text);
+                    if (item.action) {
+                      item.action(); // Call the action if defined
+                    } else {
+                      setOpenMenu(false);
+                      scrollToSection(item.text);
+                    }
                   }}
                 >
-                  <Link
-                    to={`/footixVibe/${item.text.toLowerCase()}`}
-                    className="sideMenuLink"
-                  >
+                  {item.action ? (
+                    // Render a button for the logout option
                     <ListItemButton>
                       <ListItemIcon>{item.icon}</ListItemIcon>
                       <ListItemText primary={item.text} />
                     </ListItemButton>
-                  </Link>
+                  ) : (
+                    <Link
+                      to={`/footixVibe/${item.text.toLowerCase()}`}
+                      className="sideMenuLink"
+                    >
+                      <ListItemButton>
+                        <ListItemIcon>{item.icon}</ListItemIcon>
+                        <ListItemText primary={item.text} />
+                      </ListItemButton>
+                    </Link>
+                  )}
                 </ListItem>
               ))}
             </List>
